@@ -31,8 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenModal, onNavigate, currentPage })
             {[
               { id: 'home', label: 'Home' },
               { id: 'about', label: 'About' },
-              { id: 'services', label: 'Services' },
-              { id: 'contact', label: 'Contact' }
+              { id: 'services', label: 'Services' }
             ].map((link) => (
               <button
                 key={link.id}
@@ -46,15 +45,19 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenModal, onNavigate, currentPage })
             ))}
           </div>
           
-          <Button variant="primary" onClick={onOpenModal} className="h-10 px-6 text-xs uppercase font-semibold tracking-wider">
-            Book Strategy Call
+          <Button 
+            variant="outline" 
+            onClick={() => onNavigate('about')} 
+            className="h-10 px-8 text-xs uppercase font-semibold tracking-wider border-white/10 hover:border-white/40"
+          >
+            About
           </Button>
         </div>
 
         {/* Mobile Menu Button - Minimal */}
         <div className="md:hidden">
-            <button onClick={onOpenModal} className="text-[10px] font-mono text-white border border-white/20 px-4 py-2 uppercase tracking-widest">
-                Call
+            <button onClick={() => onNavigate('about')} className="text-[10px] font-mono text-white border border-white/20 px-4 py-2 uppercase tracking-widest">
+                About
             </button>
         </div>
       </div>

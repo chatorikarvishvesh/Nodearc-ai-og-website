@@ -4,79 +4,99 @@ import { motion } from 'framer-motion';
 const ServicesPage: React.FC = () => {
   const systems = [
     {
-      title: "Autonomous Support Systems",
-      replaces: "Fragmented customer tickets and human support bottlenecks.",
-      guarantees: "Instant, accurate resolution 24/7 with deep context awareness.",
-      desc: "We engineer systems that don't just 'chat'—they solve. By integrating with your existing documentation and internal APIs, we create a layer of support that scales infinitely without headcount."
+      title: "WhatsApp Chatbots",
+      replaces: "Manual customer replies and human support bottlenecks.",
+      guarantees: "Instant, accurate resolution 24/7 on WhatsApp.",
+      desc: "We build chatbots that don't just 'chat'—they solve. By integrating with your existing documentation, we create a layer of support that scales infinitely without hiring more staff."
     },
     {
-      title: "Revenue Infrastructure",
-      replaces: "Manual lead qualification and inconsistent follow-ups.",
-      guarantees: "Every inquiry is captured, qualified, and routed within seconds.",
-      desc: "A lead-to-reporting pipeline that removes human delay. We build the architecture that identifies high-value intent and triggers the necessary follow-up sequences across CRM, Email, and WhatsApp automatically."
+      title: "Chatbot → CRM Automation",
+      replaces: "Manual data entry and inconsistent follow-ups.",
+      guarantees: "Every lead is captured and saved automatically.",
+      desc: "A lead-to-reporting pipeline that removes human delay. We build the architecture that identifies high-value customer intent and saves it directly into your CRM or Google Sheets."
     },
     {
-      title: "Operational Automation",
-      replaces: "Repetitive internal data entry and manual workflow coordination.",
-      guarantees: "Drastic reduction in operational drag and failure points.",
-      desc: "Internal workflows hardened by systems engineering. We map your most critical repetitive tasks—from fulfillment to reporting—and build deterministic automation that never sleeps, never misses a step, and never scales costs."
+      title: "AI Call & Support Agents",
+      replaces: "Repetitive routine calls and manual workflow coordination.",
+      guarantees: "Drastic reduction in missed calls and support delay.",
+      desc: "Internal and external systems hardened by AI. We handle your most critical repetitive tasks—from support calls to order status updates—and build automation that never sleeps."
     }
   ];
 
   return (
     <div className="pt-20">
-      <section className="py-40 bg-dark text-white">
-        <div className="max-w-4xl mx-auto px-6">
+      <section className="py-48 bg-dark text-white">
+        <div className="max-w-5xl mx-auto px-6">
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-5xl md:text-7xl font-bold tracking-tight mb-8"
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            className="text-6xl md:text-8xl font-bold tracking-tight mb-12 leading-none"
           >
-            What We Engineer
+            What We Build
           </motion.h1>
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="text-xl text-neutral-400 font-light max-w-2xl leading-relaxed"
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="text-xl md:text-2xl text-neutral-400 font-light max-w-3xl leading-relaxed tracking-wide"
           >
-            Production-grade systems designed to remove operational bottlenecks permanently.
+            Automation systems designed to reply to customers, capture leads, and remove operational drag.
           </motion.p>
         </div>
       </section>
 
       {systems.map((system, idx) => (
-        <section key={idx} className={`py-40 ${idx % 2 === 0 ? 'bg-white text-dark' : 'bg-dark text-white'}`}>
-          <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
+        <section key={idx} className={`py-48 ${idx % 2 === 0 ? 'bg-white text-dark' : 'bg-dark text-white border-y border-white/5'}`}>
+          <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 1 }}
             >
-              <h2 className="text-4xl font-bold tracking-tight mb-8">{system.title}</h2>
-              <div className="space-y-8 text-lg font-light leading-relaxed">
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-10 leading-tight">{system.title}</h2>
+              <div className="space-y-10 text-xl font-light leading-relaxed">
                 <p>{system.desc}</p>
-                <div className="space-y-4 pt-8">
-                  <div className="flex gap-4 items-start">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 pt-1.5">Replaces</span>
-                    <span className="flex-1">{system.replaces}</span>
+                <div className="space-y-6 pt-12 border-t border-current/10">
+                  <div className="flex gap-6 items-start">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.4em] opacity-40 pt-2 shrink-0">Replaces</span>
+                    <span className="flex-1 leading-relaxed">{system.replaces}</span>
                   </div>
-                  <div className="flex gap-4 items-start">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 pt-1.5">Guarantees</span>
-                    <span className="flex-1 font-medium">{system.guarantees}</span>
+                  <div className="flex gap-6 items-start">
+                    <span className="text-[10px] font-mono uppercase tracking-[0.4em] opacity-40 pt-2 shrink-0">Guarantees</span>
+                    <span className="flex-1 font-semibold leading-relaxed">{system.guarantees}</span>
                   </div>
                 </div>
               </div>
             </motion.div>
             <div className="hidden lg:flex items-center justify-center">
-               <div className={`w-full aspect-video border ${idx % 2 === 0 ? 'border-neutral-200 bg-neutral-50' : 'border-white/5 bg-white/5'} flex items-center justify-center p-12`}>
-                  <div className="w-full space-y-4">
-                    <div className={`h-2 rounded-full ${idx % 2 === 0 ? 'bg-neutral-200' : 'bg-white/10'} w-3/4`}></div>
-                    <div className={`h-2 rounded-full ${idx % 2 === 0 ? 'bg-neutral-100' : 'bg-white/5'} w-1/2`}></div>
-                    <div className={`h-2 rounded-full ${idx % 2 === 0 ? 'bg-neutral-200' : 'bg-white/10'} w-5/6`}></div>
+               <div className={`w-full aspect-[4/3] border ${idx % 2 === 0 ? 'border-neutral-100 bg-neutral-50' : 'border-white/5 bg-white/5'} flex items-center justify-center p-16 relative overflow-hidden`}>
+                  <div className="w-full space-y-6 relative z-10">
+                    <motion.div 
+                      initial={{ width: 0 }} 
+                      whileInView={{ width: '75%' }} 
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5, delay: 0.5 }}
+                      className={`h-1.5 rounded-full ${idx % 2 === 0 ? 'bg-neutral-900' : 'bg-white/20'}`}
+                    ></motion.div>
+                    <motion.div 
+                      initial={{ width: 0 }} 
+                      whileInView={{ width: '45%' }} 
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5, delay: 0.7 }}
+                      className={`h-1.5 rounded-full ${idx % 2 === 0 ? 'bg-neutral-200' : 'bg-white/10'}`}
+                    ></motion.div>
+                    <motion.div 
+                      initial={{ width: 0 }} 
+                      whileInView={{ width: '90%' }} 
+                      viewport={{ once: true }}
+                      transition={{ duration: 1.5, delay: 0.9 }}
+                      className={`h-1.5 rounded-full ${idx % 2 === 0 ? 'bg-neutral-400' : 'bg-white/30'}`}
+                    ></motion.div>
                   </div>
+                  {/* Decorative faint background element */}
+                  <div className={`absolute top-0 right-0 w-64 h-64 blur-3xl opacity-10 rounded-full translate-x-1/2 -translate-y-1/2 ${idx % 2 === 0 ? 'bg-black' : 'bg-white'}`} />
                </div>
             </div>
           </div>

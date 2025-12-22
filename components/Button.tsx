@@ -15,13 +15,12 @@ const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props 
 }) => {
-  // Increased height (h-14), padding (px-10), and font weight (font-semibold) for heavier feel
-  const baseStyles = "inline-flex items-center justify-center rounded-sm text-sm font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none tracking-wide h-14 px-10";
+  const baseStyles = "inline-flex items-center justify-center rounded-sm text-sm font-bold transition-all duration-500 focus:outline-none focus:ring-1 focus:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none tracking-[0.1em] uppercase h-16 px-12 group";
   
   const variants = {
-    primary: "bg-white text-black hover:bg-neutral-200 focus:ring-white border border-white",
-    secondary: "bg-neutral-900 text-white hover:bg-neutral-800 focus:ring-neutral-900 border border-neutral-800",
-    outline: "bg-transparent text-white border border-neutral-700 hover:border-neutral-500 hover:text-white"
+    primary: "bg-white text-black hover:bg-neutral-200 border border-white",
+    secondary: "bg-neutral-900 text-white hover:bg-neutral-800 border border-neutral-800",
+    outline: "bg-transparent text-white border border-white/10 hover:border-white/30"
   };
 
   return (
@@ -35,7 +34,7 @@ const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       {children}
-      {withArrow && <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />}
+      {withArrow && <ArrowRight className="ml-3 h-4 w-4 transition-transform duration-500 group-hover:translate-x-1.5" strokeWidth={2.5} />}
     </button>
   );
 };

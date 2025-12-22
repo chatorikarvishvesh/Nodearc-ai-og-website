@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, Loader2 } from 'lucide-react';
 import Button from './Button';
+import { supabase } from '../supabase';
 
 interface ModalProps {
   isOpen: boolean;
@@ -10,12 +11,15 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Lock body scroll when modal is active
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      setSubmitted(false); // Reset state on open
+      setSubmitted(false);
+      setError(null);
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -24,9 +28,34 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
     };
   }, [isOpen]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const payload = {
+      full_name: formData.get('full_name'),
+      company_role: formData.get('company_role'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      description: formData.get('description'),
+    };
+
+    try {
+      const { error: supabaseError } = await supabase
+        .from('leads')
+        .insert([payload]);
+
+      if (supabaseError) throw supabaseError;
+      
+      setSubmitted(true);
+    } catch (err: any) {
+      console.error('Error submitting form:', err);
+      setError('Something went wrong. Please try again or email us directly.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -39,111 +68,134 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/90 backdrop-blur-md z-[60]"
+            className="fixed inset-0 bg-black/95 backdrop-blur-md z-[110]"
           />
           
           {/* Modal Centering Container */}
-          <div className="fixed inset-0 z-[70] flex items-start md:items-center justify-center p-4 md:p-6 pointer-events-none pt-12 md:pt-6">
+          <div className="fixed inset-0 z-[120] flex items-start md:items-center justify-center p-4 md:p-8 pointer-events-none pt-12 md:pt-8">
             <motion.div
-              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              initial={{ opacity: 0, y: 40, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 30, scale: 0.98 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="relative w-full max-w-lg bg-[#0A0A0A] border border-white/10 rounded-sm shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden flex flex-col pointer-events-auto max-h-[90vh]"
+              exit={{ opacity: 0, y: 40, scale: 0.98 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="relative w-full max-w-xl bg-[#0A0A0A] border border-white/10 rounded-sm shadow-[0_30px_100px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col pointer-events-auto max-h-[90vh]"
             >
               {/* Header / Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-6 right-6 text-neutral-500 hover:text-white transition-colors z-[80] p-2"
+                className="absolute top-8 right-8 text-neutral-600 hover:text-white transition-colors z-[130] p-2"
                 aria-label="Close modal"
               >
-                <X className="w-5 h-5" />
+                <X className="w-6 h-6" strokeWidth={1.5} />
               </button>
 
               {/* Scrollable Form Content */}
-              <div className="overflow-y-auto p-8 md:p-12 scrollbar-thin scrollbar-thumb-white/10 overscroll-contain">
+              <div className="overflow-y-auto p-10 md:p-16 scrollbar-thin scrollbar-thumb-white/10 overscroll-contain">
                 {!submitted ? (
-                  <div className="space-y-10">
+                  <div className="space-y-12">
                     <div>
-                      <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-3">Request a Strategy Call</h2>
-                      <p className="text-base text-neutral-500 font-light">This is not a sales call. We’ll understand your use case and assess feasibility.</p>
+                      <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4 leading-tight">Request a Demo</h2>
+                      <p className="text-lg text-neutral-500 font-light leading-relaxed">We'll show you a demo of how automation can suit your business.</p>
                     </div>
 
-                    <form onSubmit={handleSubmit} className="space-y-8">
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-500 block">Full Name *</label>
+                    <form onSubmit={handleSubmit} className="space-y-10">
+                      {error && (
+                        <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-4 text-xs font-mono uppercase tracking-widest text-center">
+                          {error}
+                        </div>
+                      )}
+
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-mono uppercase tracking-[0.4em] text-neutral-600 block">Full Name *</label>
                         <input
                           required
+                          name="full_name"
                           type="text"
-                          className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3.5 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-neutral-700"
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-sm px-5 py-4 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-neutral-800 text-lg"
                         />
                       </div>
 
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-500 block">Company / Role</label>
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-mono uppercase tracking-[0.4em] text-neutral-600 block">Company / Role</label>
                         <input
+                          name="company_role"
                           type="text"
-                          className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3.5 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-neutral-700"
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-sm px-5 py-4 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-neutral-800 text-lg"
                         />
                       </div>
 
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-500 block">Email ID *</label>
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-mono uppercase tracking-[0.4em] text-neutral-600 block">Email ID *</label>
                         <input
                           required
+                          name="email"
                           type="email"
-                          className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3.5 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-neutral-700"
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-sm px-5 py-4 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-neutral-800 text-lg"
                         />
                       </div>
 
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-500 block">Mobile / WhatsApp Number *</label>
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-mono uppercase tracking-[0.4em] text-neutral-600 block">Mobile / WhatsApp Number *</label>
                         <input
                           required
+                          name="phone"
                           type="tel"
-                          className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3.5 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-neutral-700"
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-sm px-5 py-4 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-neutral-800 text-lg"
                         />
                       </div>
 
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-mono uppercase tracking-[0.2em] text-neutral-500 block">Brief Description</label>
+                      <div className="space-y-3">
+                        <label className="text-[10px] font-mono uppercase tracking-[0.4em] text-neutral-600 block">Brief Description</label>
                         <textarea
-                          rows={3}
+                          name="description"
+                          rows={4}
                           placeholder="What are you trying to automate?"
-                          className="w-full bg-white/5 border border-white/10 rounded-sm px-4 py-3.5 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-neutral-700 resize-none"
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-sm px-5 py-4 text-white focus:outline-none focus:border-white/40 transition-colors placeholder:text-neutral-800 resize-none text-lg leading-relaxed"
                         />
                       </div>
 
-                      <Button variant="primary" fullWidth className="h-16 text-base font-bold tracking-widest uppercase">
-                        Request Call
+                      <Button 
+                        variant="primary" 
+                        fullWidth 
+                        type="submit"
+                        disabled={loading}
+                        className="h-20 text-xl font-bold"
+                      >
+                        {loading ? (
+                          <div className="flex items-center gap-3">
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            <span>Processing...</span>
+                          </div>
+                        ) : (
+                          "Request Demo"
+                        )}
                       </Button>
                       
-                      {/* Safety padding for mobile viewports */}
-                      <div className="h-6" />
+                      <div className="h-8" />
                     </form>
                   </div>
                 ) : (
-                  <div className="py-24 text-center">
+                  <div className="py-32 text-center">
                     <motion.div
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="space-y-6"
+                      className="space-y-8"
                     >
-                      <div className="w-16 h-16 bg-white rounded-full mx-auto flex items-center justify-center">
+                      <div className="w-20 h-20 bg-white rounded-full mx-auto flex items-center justify-center">
                         <motion.div
                           initial={{ pathLength: 0 }}
                           animate={{ pathLength: 1 }}
-                          transition={{ duration: 0.5, delay: 0.2 }}
+                          transition={{ duration: 0.8, delay: 0.3 }}
                         >
-                          <svg className="w-8 h-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <svg className="w-10 h-10 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                           </svg>
                         </motion.div>
                       </div>
-                      <h3 className="text-3xl font-bold text-white tracking-tight">Request Received</h3>
-                      <p className="text-neutral-500 text-lg font-light">Thanks. If there’s a fit, we’ll reach out.</p>
-                      <div className="pt-8">
-                        <button onClick={onClose} className="text-neutral-400 border-b border-neutral-800 hover:border-neutral-500 pb-1 transition-all text-sm uppercase tracking-widest font-mono">Return to site</button>
+                      <h3 className="text-4xl font-bold text-white tracking-tight">Request Received</h3>
+                      <p className="text-xl text-neutral-500 font-light">Our team will get in touch with you.</p>
+                      <div className="pt-12">
+                        <button onClick={onClose} className="text-neutral-500 border-b border-neutral-900 hover:border-neutral-500 pb-1.5 transition-all text-[11px] uppercase tracking-[0.4em] font-mono">Return to site</button>
                       </div>
                     </motion.div>
                   </div>

@@ -40,23 +40,25 @@ const App: React.FC = () => {
       
       {renderPage()}
 
-      {currentPage !== 'contact' && (
-        <footer className="bg-white">
-          {/* Footer logic is mostly handled within Home's FinalCTA, 
-              but secondary pages might need a global footer or shared FinalCTA */}
-          {currentPage !== 'home' && (
-             <section className="py-20 bg-white border-t border-neutral-100">
-               <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm text-neutral-500 gap-8">
-                 <button onClick={() => setCurrentPage('home')} className="font-bold text-neutral-900 tracking-tight text-lg">NodeArc AI</button>
-                 <div className="flex gap-8 font-mono uppercase tracking-widest text-[10px]">
-                   <button onClick={() => setCurrentPage('about')} className="hover:text-neutral-900">About</button>
-                   <button onClick={() => setCurrentPage('services')} className="hover:text-neutral-900">Services</button>
-                   <button onClick={() => setCurrentPage('contact')} className="hover:text-neutral-900">Contact</button>
-                 </div>
-                 <div className="text-[10px] font-mono uppercase tracking-widest">© 2024 NodeArc Systems Ltd.</div>
-               </div>
-             </section>
-          )}
+      {/* Global Footer for non-home pages (Home has its own built-in FinalCTA footer) */}
+      {currentPage !== 'home' && (
+        <footer className="bg-white border-t border-neutral-100 py-20">
+          <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-sm text-neutral-500 gap-8">
+            <button 
+              onClick={() => setCurrentPage('home')} 
+              className="font-bold text-neutral-900 tracking-tight text-lg"
+            >
+              NodeArc AI
+            </button>
+            <div className="flex gap-8 font-mono uppercase tracking-widest text-[10px]">
+              <button onClick={() => setCurrentPage('about')} className="hover:text-neutral-900 transition-colors">About</button>
+              <button onClick={() => setCurrentPage('services')} className="hover:text-neutral-900 transition-colors">Services</button>
+              <button onClick={() => setCurrentPage('contact')} className="hover:text-neutral-900 transition-colors">Contact</button>
+            </div>
+            <div className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
+              © 2024 NodeArc Systems Ltd.
+            </div>
+          </div>
         </footer>
       )}
 
