@@ -3,10 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NodeArc AI</title>
+    <title>NodeArc AI | Engineered Automation</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind Config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            colors: {
+              dark: "#050505",
+              surface: "#0A0A0A",
+              accent: "#E5E5E5",
+            },
+            keyframes: {
+              fadeUp: {
+                "0%": { opacity: "0", transform: "translateY(12px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+            animation: {
+              fadeUp: "fadeUp 0.8s ease-out forwards",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Import maps (NO KEYS HERE) -->
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@19",
+          "react-dom/": "https://esm.sh/react-dom@19/",
+          "lucide-react": "https://esm.sh/lucide-react",
+          "framer-motion": "https://esm.sh/framer-motion",
+          "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js"
+        }
+      }
+    </script>
+
+    <style>
+      body {
+        background-color: #050505;
+        color: #e5e5e5;
+        font-family: "Inter", sans-serif;
+      }
+    </style>
   </head>
+
   <body>
     <div id="root"></div>
+
+    <!-- React Entry -->
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>
+
