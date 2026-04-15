@@ -5,13 +5,13 @@ const About: React.FC = () => {
   return (
     <div className="pt-20">
       {/* Section 1: Philosophy (Hero-style, dark) */}
-      <section className="py-48 bg-dark text-white border-b border-white/5">
+      <section className="py-24 bg-plum-radial text-white border-b border-gold/5">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="text-6xl md:text-8xl font-bold tracking-tight mb-12"
+            className="text-5xl md:text-7xl font-display font-bold tracking-tight mb-8 glow-text"
           >
             We build systems, not tools.
           </motion.h1>
@@ -19,40 +19,40 @@ const About: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="text-xl md:text-2xl text-neutral-400 font-light leading-relaxed max-w-3xl mx-auto tracking-wide"
+            className="text-lg md:text-xl text-lavender font-light leading-relaxed max-w-2xl mx-auto tracking-wide"
           >
-            NodeArc AI is a premium AI automation company focused on building <strong>reliable, production-grade automation systems</strong> for businesses. We don’t experiment on live operations. We design systems that replace manual work, reduce errors, and scale reliably.
+            NodeArc AI designs systems that manage your leads, follow up automatically, and help you convert more customers without increasing your workload.
           </motion.div>
         </div>
       </section>
 
       {/* Section 2: Core Focus (white) */}
-      <section className="py-48 bg-white text-dark">
+      <section className="py-24 bg-violet-white text-plum">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1 }}
             >
-              <h2 className="text-4xl font-bold tracking-tight mb-10">Our work focuses on:</h2>
-              <ul className="space-y-6 text-lg text-neutral-500 font-light">
+              <h2 className="text-3xl font-display font-bold tracking-tight mb-8">What you get:</h2>
+              <ul className="space-y-4 text-base text-plum/60 font-light">
                 <li className="flex gap-4">
-                  <span className="text-neutral-900 font-bold">•</span>
-                  <span>Automating customer conversations</span>
+                  <span className="text-gold font-bold">•</span>
+                  <span>Instant replies to every customer message</span>
                 </li>
                 <li className="flex gap-4">
-                  <span className="text-neutral-900 font-bold">•</span>
-                  <span>Capturing and managing leads automatically</span>
+                  <span className="text-gold font-bold">•</span>
+                  <span>Automatic lead capture and tracking</span>
                 </li>
                 <li className="flex gap-4">
-                  <span className="text-neutral-900 font-bold">•</span>
-                  <span>Reducing repetitive internal work</span>
+                  <span className="text-gold font-bold">•</span>
+                  <span>Follow-ups handled on autopilot</span>
                 </li>
                 <li className="flex gap-4">
-                  <span className="text-neutral-900 font-bold">•</span>
-                  <span>Helping businesses move from manual processes to autonomous systems</span>
+                  <span className="text-gold font-bold">•</span>
+                  <span>More sales with less manual effort</span>
                 </li>
               </ul>
             </motion.div>
@@ -62,9 +62,9 @@ const About: React.FC = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="bg-neutral-50 p-12 border border-neutral-100"
+              className="bg-white p-10 border border-plum/5 shadow-sm"
             >
-              <p className="text-xl text-neutral-600 leading-relaxed font-light">
+              <p className="text-lg text-plum/70 leading-relaxed font-light">
                 We believe automation should feel <strong>invisible, dependable, and boring</strong> — because that’s how real infrastructure works.
               </p>
             </motion.div>
@@ -73,12 +73,12 @@ const About: React.FC = () => {
       </section>
 
       {/* Section 3: Our Approach (dark) */}
-      <section className="py-48 bg-dark text-white border-y border-white/5">
+      <section className="py-24 bg-plum text-white border-y border-gold/5">
         <div className="max-w-6xl mx-auto px-6">
-          <div className="text-center mb-24">
-            <h2 className="text-4xl font-bold tracking-tight">Our Approach</h2>
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-display font-bold tracking-tight glow-text">Our Approach</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               {
                 title: "Infrastructure First",
@@ -98,11 +98,11 @@ const About: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: idx * 0.2 }}
-                className="text-center space-y-4"
+                transition={{ duration: 0.8, delay: idx * 0.1 }}
+                className="text-center space-y-3 group"
               >
-                <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                <p className="text-neutral-500 font-light leading-relaxed">{item.desc}</p>
+                <h3 className="text-lg font-display font-bold text-white group-hover:text-gold transition-colors duration-500">{item.title}</h3>
+                <p className="text-lavender text-sm font-light leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -110,29 +110,29 @@ const About: React.FC = () => {
       </section>
 
       {/* Section 4: Details & Working Together (white) */}
-      <section className="py-48 bg-white text-dark">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-32">
+      <section className="py-24 bg-violet-white text-plum">
+        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20">
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="space-y-12"
+            className="space-y-10"
           >
-            <h2 className="text-4xl font-bold tracking-tight">Company Details</h2>
-            <div className="space-y-8">
+            <h2 className="text-3xl font-display font-bold tracking-tight">Company Details</h2>
+            <div className="space-y-6">
               <div>
-                <h4 className="text-[10px] font-mono uppercase tracking-[0.4em] text-neutral-400 mb-2">Locations</h4>
-                <p className="text-lg font-light">Pune · Chhatrapati Sambhaji Nagar, India</p>
+                <h4 className="text-[9px] font-mono uppercase tracking-[0.4em] text-plum/40 mb-1">Locations</h4>
+                <p className="text-base font-light">Pune · Chhatrapati Sambhaji Nagar, India</p>
               </div>
               <div>
-                <h4 className="text-[10px] font-mono uppercase tracking-[0.4em] text-neutral-400 mb-2">Email</h4>
-                <a href="mailto:enquiry@nodearcai.com" className="text-lg font-light hover:text-neutral-600 transition-colors border-b border-neutral-200 pb-1">enquiry@nodearcai.com</a>
+                <h4 className="text-[9px] font-mono uppercase tracking-[0.4em] text-plum/40 mb-1">Email</h4>
+                <a href="mailto:enquiry@nodearcai.com" className="text-base font-light hover:text-gold transition-colors border-b border-plum/10 pb-1">enquiry@nodearcai.com</a>
               </div>
               <div>
-                <h4 className="text-[10px] font-mono uppercase tracking-[0.4em] text-neutral-400 mb-2">Phone</h4>
-                <p className="text-lg font-light">+91 7769004033</p>
+                <h4 className="text-[9px] font-mono uppercase tracking-[0.4em] text-plum/40 mb-1">Phone</h4>
+                <p className="text-base font-light">+91 7769004033</p>
               </div>
             </div>
           </motion.div>
@@ -141,14 +141,14 @@ const About: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="bg-neutral-900 text-white p-12 md:p-16 flex flex-col justify-center"
+            transition={{ duration: 1, delay: 0.2 }}
+            className="bg-plum text-white p-10 md:p-12 flex flex-col justify-center border border-gold/10 shadow-[0_0_40px_rgba(110,42,111,0.15)]"
           >
-            <h2 className="text-3xl font-bold tracking-tight mb-8">How to Work With Us</h2>
-            <p className="text-neutral-400 font-light leading-relaxed mb-10 text-lg">
+            <h2 className="text-2xl font-display font-bold tracking-tight mb-6 text-gold">How to Work With Us</h2>
+            <p className="text-lavender font-light leading-relaxed mb-8 text-base">
               If automation is becoming important for your business, the next step is a structured walkthrough of how these systems would apply to you.
             </p>
-            <p className="text-neutral-500 text-sm font-mono uppercase tracking-widest">
+            <p className="text-lavender/40 text-[10px] font-mono uppercase tracking-widest">
               You can request a demo or discussion directly from the website.
             </p>
           </motion.div>

@@ -15,19 +15,22 @@ const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props 
 }) => {
-  const baseStyles = "inline-flex items-center justify-center rounded-sm text-sm font-bold transition-all duration-500 focus:outline-none focus:ring-1 focus:ring-offset-1 disabled:opacity-50 disabled:pointer-events-none tracking-[0.1em] uppercase h-16 px-12 group";
+  const baseStyles = "inline-flex items-center justify-center rounded-sm text-sm font-display font-bold transition-all duration-500 focus:outline-none disabled:opacity-50 disabled:pointer-events-none tracking-[0.1em] uppercase group";
   
   const variants = {
-    primary: "bg-white text-black hover:bg-neutral-200 border border-white",
-    secondary: "bg-neutral-900 text-white hover:bg-neutral-800 border border-neutral-800",
-    outline: "bg-transparent text-white border border-white/10 hover:border-white/30"
+    primary: "bg-gold text-dark hover:bg-gold/90 border border-gold gold-glow",
+    secondary: "bg-plum-light text-white hover:bg-plum-light/90 border border-plum-light",
+    outline: "bg-transparent text-white border border-white/20 hover:border-gold hover:text-gold"
   };
+
+  const defaultSize = "h-14 px-10";
 
   return (
     <button 
       className={`
         ${baseStyles} 
         ${variants[variant]} 
+        ${!className.includes('h-') ? defaultSize : ''}
         ${fullWidth ? 'w-full' : ''} 
         ${className}
       `}

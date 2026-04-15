@@ -4,22 +4,23 @@ import Services from './Services';
 import ROI from './ROI';
 import Trust from './Trust';
 import Process from './Process';
+import Positioning from './Positioning';
 import FinalCTA from './FinalCTA';
 
 interface HomeProps {
-  onOpenModal: () => void;
   onNavigate: (page: string) => void;
 }
 
-const Home: React.FC<HomeProps> = ({ onOpenModal, onNavigate }) => {
+const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   return (
     <main>
-      <Hero onOpenModal={onOpenModal} />
+      <Hero />
       <Services />
       <ROI />
       <Trust />
       <Process />
-      <FinalCTA onOpenModal={onOpenModal} onNavigate={onNavigate} />
+      <Positioning />
+      <FinalCTA onNavigate={onNavigate} />
     </main>
   );
 };

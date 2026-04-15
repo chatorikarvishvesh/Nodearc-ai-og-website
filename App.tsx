@@ -4,15 +4,10 @@ import Home from './components/Home';
 import About from './components/About';
 import ServicesPage from './components/ServicesPage';
 import Contact from './components/Contact';
-import Modal from './components/Modal';
 import Chatbot from './components/Chatbot';
 
 const App: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState('home');
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
   // Scroll to top on page change
   useEffect(() => {
@@ -22,21 +17,21 @@ const App: React.FC = () => {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <Home onOpenModal={openModal} onNavigate={setCurrentPage} />;
+        return <Home onNavigate={setCurrentPage} />;
       case 'about':
         return <About />;
       case 'services':
         return <ServicesPage />;
       case 'contact':
-        return <Contact onOpenModal={openModal} />;
+        return <Contact />;
       default:
-        return <Home onOpenModal={openModal} onNavigate={setCurrentPage} />;
+        return <Home onNavigate={setCurrentPage} />;
     }
   };
 
   return (
     <div className="w-full min-h-screen bg-dark text-neutral-200 selection:bg-neutral-800 selection:text-white overflow-x-hidden">
-      <Navbar onOpenModal={openModal} onNavigate={setCurrentPage} currentPage={currentPage} />
+      <Navbar onNavigate={setCurrentPage} currentPage={currentPage} />
       
       {renderPage()}
 
@@ -62,8 +57,7 @@ const App: React.FC = () => {
         </footer>
       )}
 
-      <Modal isOpen={isModalOpen} onClose={closeModal} />
-      <Chatbot onOpenModal={openModal} />
+      <Chatbot />
     </div>
   );
 };
